@@ -27,7 +27,7 @@
 #define DBG_RTW_CFG80211_MESH_CONF 0
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 #define STATION_INFO_INACTIVE_TIME	BIT(NL80211_STA_INFO_INACTIVE_TIME)
 #define STATION_INFO_LLID			BIT(NL80211_STA_INFO_LLID)
 #define STATION_INFO_PLID			BIT(NL80211_STA_INFO_PLID)
@@ -258,7 +258,7 @@ static const char *nl80211_chan_width_str(enum nl80211_chan_width cwidth)
 		return "80+80";
 	case NL80211_CHAN_WIDTH_160:
 		return "160";
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	case NL80211_CHAN_WIDTH_5:
 		return "5";
 	case NL80211_CHAN_WIDTH_10:
@@ -315,7 +315,7 @@ static void rtw_get_chbw_from_cfg80211_chan_def(struct cfg80211_chan_def *chdef,
 			*ch = chan->hw_value;
 		break;
 	case NL80211_CHAN_WIDTH_80P80:
-	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	case NL80211_CHAN_WIDTH_5:
 	case NL80211_CHAN_WIDTH_10:
 	#endif
@@ -968,7 +968,7 @@ void rtw_cfg80211_ibss_indicate_connect(_adapter *padapter)
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 	struct wlan_network  *cur_network = &(pmlmepriv->cur_network);
 	struct wireless_dev *pwdev = padapter->rtw_wdev;
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	struct wiphy *wiphy = pwdev->wiphy;
 	int freq = 2412;
 	struct ieee80211_channel *notify_channel;
@@ -1017,7 +1017,7 @@ void rtw_cfg80211_ibss_indicate_connect(_adapter *padapter)
 			RTW_PRINT(FUNC_ADPT_FMT" BSS not found !!\n", FUNC_ADPT_ARG(padapter));
 	}
 	/* notify cfg80211 that device joined an IBSS */
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	freq = rtw_ch2freq(cur_network->network.Configuration.DSConfig);
 	if (1)
 		RTW_INFO("chan: %d, freq: %d\n", cur_network->network.Configuration.DSConfig, freq);
@@ -1038,7 +1038,7 @@ void rtw_cfg80211_indicate_connect(_adapter *padapter)
 #ifdef CONFIG_P2P
 	struct wifidirect_info *pwdinfo = &(padapter->wdinfo);
 #endif
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0)
 	struct cfg80211_roam_info roam_info ={};
 #endif
 
@@ -1111,7 +1111,7 @@ check_bss:
 		notify_channel = ieee80211_get_channel(wiphy, freq);
 		#endif
 
-		#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
+		#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0)
 		roam_info.bssid = cur_network->network.MacAddress;
 		roam_info.req_ie = pmlmepriv->assoc_req + sizeof(struct rtw_ieee80211_hdr_3addr) + 2;
 		roam_info.req_ie_len = pmlmepriv->assoc_req_len - sizeof(struct rtw_ieee80211_hdr_3addr) - 2;
@@ -1139,7 +1139,7 @@ check_bss:
 			rtw_ft_set_status(padapter, RTW_FT_ASSOCIATED_STA);
 #endif
 	} else {
-		#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) || defined(COMPAT_KERNEL_RELEASE)
+		#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0) || defined(COMPAT_KERNEL_RELEASE)
 		RTW_INFO("pwdev->sme_state(b)=%d\n", pwdev->sme_state);
 		#endif
 
@@ -1150,7 +1150,7 @@ check_bss:
 				, pmlmepriv->assoc_rsp + sizeof(struct rtw_ieee80211_hdr_3addr) + 6
 				, pmlmepriv->assoc_rsp_len - sizeof(struct rtw_ieee80211_hdr_3addr) - 6
 				, WLAN_STATUS_SUCCESS, GFP_ATOMIC);
-		#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) || defined(COMPAT_KERNEL_RELEASE)
+		#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0) || defined(COMPAT_KERNEL_RELEASE)
 		RTW_INFO("pwdev->sme_state(a)=%d\n", pwdev->sme_state);
 		#endif
 	}
@@ -1205,7 +1205,7 @@ void rtw_cfg80211_indicate_disconnect(_adapter *padapter, u16 reason, u8 locally
 	_enter_critical_bh(&pwdev_priv->connect_req_lock, &irqL);
 
 	if (padapter->ndev_unregistering || !rtw_wdev_not_indic_disco(pwdev_priv)) {
-		#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) || defined(COMPAT_KERNEL_RELEASE)
+		#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0) || defined(COMPAT_KERNEL_RELEASE)
 		RTW_INFO("pwdev->sme_state(b)=%d\n", pwdev->sme_state);
 
 		if (pwdev->sme_state == CFG80211_SME_CONNECTING) {
@@ -2472,7 +2472,7 @@ void rtw_cfg80211_indicate_scan_done(_adapter *adapter, bool aborted)
 	struct rtw_wdev_priv *pwdev_priv = adapter_wdev_data(adapter);
 	_irqL	irqL;
 
-#if (KERNEL_VERSION(4, 7, 0) <= LINUX_VERSION_CODE)
+#if (KERNEL_VERSION(3, 10, 0) <= LINUX_VERSION_CODE)
 	struct cfg80211_scan_info info;
 
 	memset(&info, 0, sizeof(info));
@@ -2489,7 +2489,7 @@ void rtw_cfg80211_indicate_scan_done(_adapter *adapter, bool aborted)
 		if (pwdev_priv->scan_request->wiphy != pwdev_priv->rtw_wdev->wiphy)
 			RTW_INFO("error wiphy compare\n");
 		else
-#if (KERNEL_VERSION(4, 7, 0) <= LINUX_VERSION_CODE)
+#if (KERNEL_VERSION(3, 10, 0) <= LINUX_VERSION_CODE)
 			cfg80211_scan_done(pwdev_priv->scan_request, &info);
 #else
 			cfg80211_scan_done(pwdev_priv->scan_request, aborted);
@@ -3206,7 +3206,7 @@ bypass_p2p_chk:
 
 check_need_indicate_scan_done:
 	if (_TRUE == need_indicate_scan_done) {
-#if (KERNEL_VERSION(4, 7, 0) <= LINUX_VERSION_CODE)
+#if (KERNEL_VERSION(3, 10, 0) <= LINUX_VERSION_CODE)
 		struct cfg80211_scan_info info;
 
 		memset(&info, 0, sizeof(info));
@@ -3214,7 +3214,7 @@ check_need_indicate_scan_done:
 #endif
 
 		_rtw_cfg80211_surveydone_event_callback(padapter, request);
-#if (KERNEL_VERSION(4, 7, 0) <= LINUX_VERSION_CODE)
+#if (KERNEL_VERSION(3, 10, 0) <= LINUX_VERSION_CODE)
 		cfg80211_scan_done(request, &info);
 #else
 		cfg80211_scan_done(request, 0);
@@ -4098,7 +4098,7 @@ static int cfg80211_rtw_disconnect(struct wiphy *wiphy, struct net_device *ndev,
 	RTW_INFO(FUNC_NDEV_FMT" - Start to Disconnect\n", FUNC_NDEV_ARG(ndev));
 
 #if (RTW_CFG80211_BLOCK_STA_DISCON_EVENT & RTW_CFG80211_BLOCK_DISCON_WHEN_DISCONNECT)
-	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	if (!wiphy->dev.power.is_prepared)
 	#endif
 		rtw_wdev_set_not_indic_disco(adapter_wdev_data(padapter), 1);
@@ -5287,7 +5287,7 @@ void dump_station_parameters(void *sel, struct wiphy *wiphy, const struct statio
 	bool opmode_notif_used;
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 7, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	int support_p2p_ps;
 #endif
 #endif
@@ -6000,7 +6000,7 @@ static int cfg80211_rtw_set_monitor_channel(struct wiphy *wiphy
 		target_offset = HAL_PRIME_CHNL_OFFSET_DONT_CARE;
 		break;
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	case NL80211_CHAN_WIDTH_5:
 	case NL80211_CHAN_WIDTH_10:
 #endif
@@ -7764,7 +7764,7 @@ void dump_mesh_setup(void *sel, struct wiphy *wiphy, const struct mesh_setup *se
 	RTW_PRINT_SEL(sel, "sync_method:%u\n", setup->sync_method);
 #endif
 	RTW_PRINT_SEL(sel, "path_sel_proto:%u, path_metric:%u\n", setup->path_sel_proto, setup->path_metric);
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	RTW_PRINT_SEL(sel, "auth_id:%u\n", setup->auth_id);
 #endif
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0))
@@ -7807,7 +7807,7 @@ void dump_mesh_setup(void *sel, struct wiphy *wiphy, const struct mesh_setup *se
 	}
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	if (setup->basic_rates) {
 		char buf[LEGACY_RATES_STR_LEN] = {0};
 
@@ -7905,7 +7905,7 @@ void dump_mesh_config(void *sel, const struct mesh_config *conf)
 	RTW_PRINT_SEL(sel, "dot11MeshAwakeWindowDuration:%u\n", conf->dot11MeshAwakeWindowDuration);
 #endif
 	
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	RTW_PRINT_SEL(sel, "plink_timeout:%u\n", conf->plink_timeout);
 #endif
 }
@@ -7921,7 +7921,7 @@ static void rtw_cfg80211_mesh_info_set_profile(struct rtw_mesh_info *minfo, cons
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0))
 	minfo->mesh_sp_id = setup->sync_method;
 #endif
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	minfo->mesh_auth_id = setup->auth_id;
 #else
 	if (setup->is_authenticated) {
@@ -8058,7 +8058,7 @@ static void rtw_cfg80211_mesh_cfg_set(_adapter *adapter, const struct mesh_confi
 #endif
 
 #if 0 /* driver MPM */
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	if (chk_mesh_attr(NL80211_MESHCONF_PLINK_TIMEOUT, mask));
 #endif
 #endif
@@ -8159,7 +8159,7 @@ u8 *rtw_cfg80211_construct_mesh_beacon_ies(struct wiphy *wiphy, _adapter *adapte
 	/* Supported Rates */
 	for (i = 0; i < n_bitrates; i++) {
 		supported_rates[i] = wiphy->bands[chan->band]->bitrates[i].bitrate / 5;
-		#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+		#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 		if (setup->basic_rates & BIT(i))
 		#else
 		if (rtw_is_basic_rate_mix(supported_rates[i]))
@@ -8351,7 +8351,7 @@ static int cfg80211_rtw_get_mesh_config(struct wiphy *wiphy, struct net_device *
 	conf->dot11MeshAwakeWindowDuration = 0;
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	conf->plink_timeout = mesh_cfg->plink_timeout;
 #endif
 
@@ -8419,7 +8419,7 @@ static int cfg80211_rtw_join_mesh(struct wiphy *wiphy, struct net_device *dev,
 
 	/* apply cfg80211 settings (join only) */
 	rtw_mesh_cfg_init_max_peer_links(adapter, conf->dot11MeshMaxPeerLinks);
-	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0))
+	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	rtw_mesh_cfg_init_plink_timeout(adapter, conf->plink_timeout);
 	#endif
 
@@ -9500,7 +9500,7 @@ static void rtw_cfg80211_preinit_wiphy(_adapter *adapter, struct wiphy *wiphy)
 #endif
 
 #if defined(CONFIG_PM) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0) && \
-			   LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0))
+			   LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0))
 	wiphy->flags |= WIPHY_FLAG_SUPPORTS_SCHED_SCAN;
 #ifdef CONFIG_PNO_SUPPORT
 	wiphy->max_sched_scan_ssids = MAX_PNO_LIST_COUNT;
@@ -9511,7 +9511,7 @@ static void rtw_cfg80211_preinit_wiphy(_adapter *adapter, struct wiphy *wiphy)
 #endif
 
 #if defined(CONFIG_PM) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0))
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0))
 	wiphy->wowlan = wowlan_stub;
 #else
 	wiphy->wowlan = &wowlan_stub;
@@ -10122,7 +10122,7 @@ void rtw_wdev_unregister(struct wireless_dev *wdev)
 
 	rtw_cfg80211_indicate_scan_done(adapter, _TRUE);
 
-	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0)) || defined(COMPAT_KERNEL_RELEASE)
+	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0)) || defined(COMPAT_KERNEL_RELEASE)
 	if (wdev->current_bss) {
 		RTW_INFO(FUNC_ADPT_FMT" clear current_bss by cfg80211_disconnected\n", FUNC_ADPT_ARG(adapter));
 		rtw_cfg80211_indicate_disconnect(adapter, 0, 1);
