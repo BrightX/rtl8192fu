@@ -13,6 +13,9 @@
  *
  *****************************************************************************/
 #include "rtl8192f_hal.h"
+#include <drv_types.h>
+#include <hal_data.h>
+#include <hal_com_led.h>
 #ifdef CONFIG_RTW_SW_LED
 
 /*
