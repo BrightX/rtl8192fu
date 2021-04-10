@@ -475,9 +475,9 @@ static int proc_get_sdio_dbg(struct seq_file *m, void *v)
 }
 
 #if (DBG_SDIO >= 2)
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 #define strnicmp	strncasecmp
-#endif /* Linux kernel >= 4.0.0 */
+#endif /* Linux kernel >= 3.10.0 */
 void rtw_sdio_dbg_reg_free(struct dvobj_priv *d);
 #endif /* DBG_SDIO >= 2 */
 

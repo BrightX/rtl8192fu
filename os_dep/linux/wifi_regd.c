@@ -310,7 +310,7 @@ void rtw_regd_apply_flags(struct wiphy *wiphy)
 			#endif
 		) {
 			ch->flags |= IEEE80211_CHAN_RADAR;
-			#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0))
+			#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0))
 			ch->flags |= (IEEE80211_CHAN_NO_IBSS | IEEE80211_CHAN_PASSIVE_SCAN);
 			#else
 			ch->flags |= IEEE80211_CHAN_NO_IR;

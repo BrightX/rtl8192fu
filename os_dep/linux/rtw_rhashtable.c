@@ -19,7 +19,7 @@
 
 int rtw_rhashtable_walk_enter(rtw_rhashtable *ht, rtw_rhashtable_iter *iter)
 {
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 7, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
 	return rhashtable_walk_init((ht), (iter), GFP_ATOMIC);
 #else
 	/* kernel >= 4.4.0 rhashtable_walk_init use GFP_KERNEL to alloc, spin_lock for assignment */
