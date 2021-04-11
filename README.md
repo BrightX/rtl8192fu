@@ -14,14 +14,28 @@
 
 ## 使用方式
 
-### Ubuntu Server 18.04.5
+支持的环境：
 
-内核`4.15` 
+* **Ubuntu Server 18.04.5** 内核`4.15` 
+* **Centos 7** 内核`3.10` 
+* **Kali 2019.2** 内核`4.18` 
+
+安装内核环境
+
+```bash
+# ubuntu、kali 用户通过以下命令安装
+sudo apt install -y linux-headers-$(uname -r)
+# centos 用户通过以下命令安装
+sudo yum install -y kernel-headers kernel-devel
+```
 
 安装编译器：
 
 ```bash
+# ubuntu、kali 用户通过以下命令安装
 sudo apt install gcc make
+# centos 用户通过以下命令安装
+sudo yum install gcc make
 ```
 
 然后进入驱动代码目录：
@@ -45,6 +59,15 @@ sudo modprobe 8192fu
 ```
 
 **注意**：USB网卡上的`LED`指示灯可能不会闪烁，但是设备这时候可以使用了。
+
+安装USB工具：
+
+```bash
+# ubuntu 用户通过以下命令安装
+sudo apt install usbutils
+# centos 用户通过以下命令安装
+sudo yum install usbutils
+```
 
 查看USB接口列表：
 
@@ -87,4 +110,55 @@ I:  If#=0x0 Alt= 0 #EPs= 8 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
 ```
 
 成功之后，就可以去配置无线网络了。
+
+驱动的卸载：
+
+```bash
+sudo rmmod rtl8192fu
+cd rtl8192fu/
+sudo make uninstall
+```
+
+### 对 `dkms`的支持
+
+> 每次内核更新之后，驱动都需要手动重新编译安装，可能比较麻烦。
+>
+> 使用`dkms`，可以在更新内核时自动完成驱动的编译和安装。
+
+安装内核环境
+
+```bash
+# ubuntu、kali 用户通过以下命令安装
+sudo apt install -y linux-headers-$(uname -r)
+# centos 用户通过以下命令安装
+sudo yum install -y kernel-headers kernel-devel
+```
+
+安装`dkms` 
+
+```bash
+# ubuntu、kali 用户通过以下命令安装
+sudo apt install build-essential dkms -y
+# centos 用户通过以下两条命令安装
+sudo yum install epel-release -y
+sudo yum install dkms -y
+```
+
+使用：
+
+```bash
+# 进入驱动源码目录
+cd rtl8192fu/
+# 使用 dkms安装驱动
+sudo ./dkms-install.sh
+
+# 如果需要卸载驱动的话可以使用以下命令
+sudo ./dkms-remove.sh
+```
+
+装载驱动到内核模块：
+
+```bash
+sudo modprobe 8192fu
+```
 
