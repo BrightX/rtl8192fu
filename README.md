@@ -149,6 +149,8 @@ sudo yum install dkms -y
 ```bash
 # 进入驱动源码目录
 cd rtl8192fu/
+# 赋予可执行权限
+sudo chmod a+x ./dkms-*
 # 使用 dkms安装驱动
 sudo ./dkms-install.sh
 
