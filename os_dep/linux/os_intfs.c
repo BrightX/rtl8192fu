@@ -4267,7 +4267,7 @@ static int route_dump(u32 *gw_addr , int *gw_index)
 
 	msg.msg_name = &nladdr;
 	msg.msg_namelen = sizeof(nladdr);
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 19, 0))
 	/* referece:sock_xmit in kernel code
 	 * WRITE for sock_sendmsg, READ for sock_recvmsg
 	 * third parameter for msg_iovlen

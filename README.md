@@ -41,7 +41,7 @@ sudo yum install gcc make
 然后进入驱动代码目录：
 
 ```bash
-cd rtl8192fu
+cd rtl8192fu/
 ```
 
 编译并安装：
@@ -114,7 +114,7 @@ I:  If#=0x0 Alt= 0 #EPs= 8 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
 驱动的卸载：
 
 ```bash
-sudo rmmod rtl8192fu
+sudo modprobe -r 8192fu
 cd rtl8192fu/
 sudo make uninstall
 ```
@@ -155,6 +155,7 @@ sudo chmod a+x ./dkms-*
 sudo ./dkms-install.sh
 
 # 如果需要卸载驱动的话可以使用以下命令
+sudo modprobe -r 8192fu
 sudo ./dkms-remove.sh
 ```
 
