@@ -19,6 +19,7 @@
 #include <drv_types.h>
 
 #define RT_TAG	'1178'
+#define get_ds()	(KERNEL_DS)
 
 #ifdef DBG_MEMORY_LEAK
 #ifdef PLATFORM_LINUX
