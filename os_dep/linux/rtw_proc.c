@@ -5034,7 +5034,6 @@ static const struct file_operations rtw_mcc_proc_sseq_fops = {
 };
 #else
 static const struct proc_ops rtw_mcc_proc_seq_fops = {
-	.proc_owner = THIS_MODULE,
 	.proc_open = rtw_mcc_proc_open,
 	.proc_read = seq_read,
 	.proc_lseek = seq_lseek,
@@ -5043,7 +5042,6 @@ static const struct proc_ops rtw_mcc_proc_seq_fops = {
 };
 
 static const struct proc_ops rtw_mcc_proc_sseq_fops = {
-	.proc_owner = THIS_MODULE,
 	.proc_open = rtw_mcc_proc_open,
 	.proc_read = seq_read,
 	.proc_lseek = seq_lseek,
