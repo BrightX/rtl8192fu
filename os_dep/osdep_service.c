@@ -19,7 +19,9 @@
 #include <drv_types.h>
 
 #define RT_TAG	'1178'
+#ifdef set_fs
 #define get_ds()	(KERNEL_DS)
+#endif
 
 #ifdef DBG_MEMORY_LEAK
 #ifdef PLATFORM_LINUX
@@ -2214,7 +2216,7 @@ static int isFileReadable(const char *path, u32 *sz)
 {
 	struct file *fp;
 	int ret = 0;
-	#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+	#ifdef set_fs
 	mm_segment_t oldfs;
 	#endif
 	char buf;
@@ -2223,7 +2225,7 @@ static int isFileReadable(const char *path, u32 *sz)
 	if (IS_ERR(fp))
 		ret = PTR_ERR(fp);
 	else {
-		#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+		#ifdef set_fs
 		oldfs = get_fs();
 		set_fs(get_ds());
 		#endif
@@ -2238,8 +2240,7 @@ static int isFileReadable(const char *path, u32 *sz)
 			*sz = i_size_read(fp->f_dentry->d_inode);
 			#endif
 		}
-
-		#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+		#ifdef set_fs
 		set_fs(oldfs);
 		#endif
 		filp_close(fp, NULL);
@@ -2257,7 +2258,7 @@ static int isFileReadable(const char *path, u32 *sz)
 static int retriveFromFile(const char *path, u8 *buf, u32 sz)
 {
 	int ret = -1;
-	#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+	#ifdef set_fs
 	mm_segment_t oldfs;
 	#endif
 	struct file *fp;
@@ -2267,12 +2268,12 @@ static int retriveFromFile(const char *path, u8 *buf, u32 sz)
 		if (0 == ret) {
 			RTW_INFO("%s openFile path:%s fp=%p\n", __FUNCTION__, path , fp);
 
-			#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+			#ifdef set_fs
 			oldfs = get_fs();
 			set_fs(get_ds());
 			#endif
 			ret = readFile(fp, buf, sz);
-			#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+			#ifdef set_fs
 			set_fs(oldfs);
 			#endif
 			closeFile(fp);
@@ -2298,7 +2299,7 @@ static int retriveFromFile(const char *path, u8 *buf, u32 sz)
 static int storeToFile(const char *path, u8 *buf, u32 sz)
 {
 	int ret = 0;
-	#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+	#ifdef set_fs
 	mm_segment_t oldfs;
 	#endif
 	struct file *fp;
@@ -2307,13 +2308,12 @@ static int storeToFile(const char *path, u8 *buf, u32 sz)
 		ret = openFile(&fp, path, O_CREAT | O_WRONLY, 0666);
 		if (0 == ret) {
 			RTW_INFO("%s openFile path:%s fp=%p\n", __FUNCTION__, path , fp);
-
-			#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+			#ifdef set_fs
 			oldfs = get_fs();
 			set_fs(get_ds());
 			#endif
 			ret = writeFile(fp, buf, sz);
-			#if (LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0))
+			#ifdef set_fs
 			set_fs(oldfs);
 			#endif
 			closeFile(fp);
