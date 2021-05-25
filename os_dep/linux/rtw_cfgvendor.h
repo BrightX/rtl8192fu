@@ -609,7 +609,7 @@ typedef struct {
 #endif /* CONFIG_RTW_CFGVEDNOR_LLSTATS */
 
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(RTW_VENDOR_EXT_SUPPORT)
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8)) || defined(RTW_VENDOR_EXT_SUPPORT)
 extern int rtw_cfgvendor_attach(struct wiphy *wiphy);
 extern int rtw_cfgvendor_detach(struct wiphy *wiphy);
 extern int rtw_cfgvendor_send_async_event(struct wiphy *wiphy,
@@ -618,7 +618,7 @@ extern int rtw_cfgvendor_send_async_event(struct wiphy *wiphy,
 extern int rtw_cfgvendor_send_hotlist_event(struct wiphy *wiphy,
 	struct net_device *dev, void  *data, int len, rtw_vendor_event_t event);
 #endif
-#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(RTW_VENDOR_EXT_SUPPORT) */
+#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8)) || defined(RTW_VENDOR_EXT_SUPPORT) */
 
 #ifdef CONFIG_RTW_CFGVEDNOR_RSSIMONITOR
 void rtw_cfgvendor_rssi_monitor_evt(_adapter *padapter);

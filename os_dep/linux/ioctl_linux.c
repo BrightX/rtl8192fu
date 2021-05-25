@@ -12823,7 +12823,7 @@ static int rtw_ioctl_standard_wext_private(struct net_device *dev, struct ifreq 
 static int rtw_ioctl_wext_private(struct net_device *dev, struct ifreq *rq)
 {
 #ifdef CONFIG_COMPAT
-#if (KERNEL_VERSION(4, 6, 0) > LINUX_VERSION_CODE)
+#if (KERNEL_VERSION(4, 6, 0) > LINUX_VERSION_CODE && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
 	if (is_compat_task())
 #else
 	if (in_compat_syscall())

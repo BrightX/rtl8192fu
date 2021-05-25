@@ -28,9 +28,9 @@
 #endif
 #endif /* defined(RTW_ENABLE_WIFI_CONTROL_FUNC) */
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0)) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8)
 #define strnicmp	strncasecmp
-#endif /* Linux kernel >= 4.0.0 */
+#endif /* Linux kernel >= 4.0.0 || CentOS Version >= 7.8 */
 
 #ifdef CONFIG_GPIO_WAKEUP
 #include <linux/interrupt.h>
