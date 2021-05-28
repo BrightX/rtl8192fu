@@ -8,23 +8,30 @@
 
 
 > 原始文档里说支持Linux内核版本`2.6.18 ~ 5.1`。
-> 依据我目前测试情况来看，支持`Ubuntu Server 18.04.5`(内核`4.15`)。但不支持`Ubuntu Desktop 18.04.5`(内核`5.4`)，也不支持`CentOS 7`(内核`3.10`)和`CentOS 8`(内核`4.18`)。
-> 目前只测试了以上几种环境(均为`x86_64`架构)，其它情况没有测试。
+> 但不支持 Linux 内核`5.1+`以上的版本，也不支持 `RHEL`/`CentOS` `> 7.0`以上的版本。
 
+---
+
+> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.12` 的支持(注意`5.11`和`5.12`尚未进行测试)以及对 `RHEL`/`CentOS` `7.0`/`7.8`/`7.9`/`8.x`的支持。
+
+目前已测试的Linux发行版及结果：
+
+* 已通过：`Red Hat server 7.0`、`CentOS 7.0/7.8/7.9/8.3`、`Ubuntu Server 16.04/18.04/20.04`、`Ubuntu Desktop 18.04/20.04`；
+* 未通过：`CentOS 7.1 ~ 7.7`。
+
+其他未测试的，如果内核版本符合上述要求，通常情况下是可以使用的，但不能完全肯定。
 
 ## 使用方式
-
-### Ubuntu Server 18.04.5
-
-内核`4.15` 
 
 安装内核环境
 
 ```bash
 # ubuntu、kali 用户通过以下命令安装
 sudo apt install -y linux-headers-$(uname -r)
+
 # centos 用户通过以下命令安装
-sudo yum install -y kernel-headers kernel-devel
+sudo yum install -y kernel-headers-$(uname -r) kernel-devel-$(uname -r)
+# centos 7.x/8.x 的 yum 源通常只提供对最新发行版的支持，所以像CentOS 7.8等非最新发行版就需要手动到 https://vault.centos.org/7.8.2003/os/x86_64/Packages/kernel-devel-3.10.0-1127.el7.x86_64.rpm 下载rpm文件，然后进行手动安装
 ```
 
 安装编译器：
@@ -32,6 +39,7 @@ sudo yum install -y kernel-headers kernel-devel
 ```bash
 # ubuntu、kali 用户通过以下命令安装
 sudo apt install make gcc bc
+
 # centos 用户通过以下命令安装
 sudo yum install make gcc bc
 ```
@@ -45,7 +53,7 @@ cd rtl8192fu
 编译并安装：
 
 ```bash
-make
+make -j8
 
 sudo make install
 ```
@@ -62,6 +70,16 @@ sudo modprobe 8192fu
 
 ```bash
 lsusb
+```
+
+如果出现`command not found`的问题就需要先安装`usbutils`：
+
+```bash
+# ubuntu 用户通过以下命令安装
+sudo apt install usbutils
+
+# centos 用户通过以下命令安装
+sudo yum install usbutils
 ```
 
 查看USB设备信息：
@@ -119,8 +137,20 @@ sudo make uninstall
 ```bash
 # ubuntu、kali 用户通过以下命令安装
 sudo apt install -y linux-headers-$(uname -r)
+
 # centos 用户通过以下命令安装
-sudo yum install -y kernel-headers kernel-devel
+sudo yum install -y kernel-headers-$(uname -r) kernel-devel-$(uname -r)
+# centos 7.x/8.x 的 yum 源通常只提供对最新发行版的支持，所以像CentOS 7.8等非最新发行版就需要手动到 https://vault.centos.org/7.8.2003/os/x86_64/Packages/kernel-devel-3.10.0-1127.el7.x86_64.rpm 下载rpm文件，然后进行手动安装
+```
+
+安装编译器：
+
+```bash
+# ubuntu、kali 用户通过以下命令安装
+sudo apt install make gcc bc
+
+# centos 用户通过以下命令安装
+sudo yum install make gcc bc
 ```
 
 安装`dkms` 
@@ -128,6 +158,7 @@ sudo yum install -y kernel-headers kernel-devel
 ```bash
 # ubuntu、kali 用户通过以下命令安装
 sudo apt install build-essential dkms -y
+
 # centos 用户通过以下两条命令安装
 sudo yum install epel-release -y
 sudo yum install dkms -y
@@ -142,15 +173,11 @@ cd rtl8192fu/
 sudo chmod a+x ./dkms-*
 # 使用 dkms安装驱动
 sudo ./dkms-install.sh
+# 然后将驱动装载到内核模块
+sudo modprobe 8192fu
 
 # 如果需要卸载驱动的话可以使用以下命令
 sudo modprobe -r 8192fu
 sudo ./dkms-remove.sh
-```
-
-装载驱动到内核模块：
-
-```bash
-sudo modprobe 8192fu
 ```
 
