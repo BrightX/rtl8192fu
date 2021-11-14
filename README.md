@@ -7,27 +7,30 @@
 ---
 
 
-> 原始文档里说支持Linux内核版本`2.6.18 ~ 5.1`。
-> 但不支持 Linux 内核`5.1+`以上的版本，也不支持 `RHEL`/`CentOS` `> 7.0`以上的版本。
+> ~~原始文档里说支持Linux内核版本`2.6.18 ~ 5.1`。
+> 但不支持 Linux 内核`5.1+`以上的版本，也不支持 `RHEL`/`CentOS` `> 7.0`以上的版本。~~
 
 ---
 
-> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.12` 的支持(注意`5.11`和`5.12`尚未进行测试)以及对 `RHEL`/`CentOS` `7.0`/`7.8`/`7.9`/`8.x`的支持。
+> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.15` 的支持，以及对 `RHEL`/`CentOS` `7.0`/`7.8`/`7.9`/`8.x`的支持。
 
 目前已测试的Linux发行版及结果：
 
-* 已通过：`Red Hat server 7.0`、`CentOS 7.0/7.8/7.9/8.3`、`Ubuntu Server 16.04/18.04/20.04`、`Ubuntu Desktop 18.04/20.04`；
+* 已通过：`Red Hat server 7.0`、`CentOS 7.0/7.8/7.9/8.3/8.4`、`Rocky Linux 8.4`、`Ubuntu Server 16.04/18.04/20.04/21.04/21.10`、`Ubuntu Desktop 18.04/20.04`、`linux mint 20.1`、`kali 2021.1`、`archlinux-2021.09.01`、`archlinux-2021.11.01`；
 * 未通过：`CentOS 7.1 ~ 7.7`。
 
 其他未测试的，如果内核版本符合上述要求，通常情况下是可以使用的，但不能完全肯定。
 
 ## 使用方式
 
-安装内核环境
+安装内核头文件
 
 ```bash
 # ubuntu、kali 用户通过以下命令安装
 sudo apt install -y linux-headers-$(uname -r)
+
+# Arch 用户通过以下命令安装
+sudo pacman -S linux-headers
 
 # centos 用户通过以下命令安装
 sudo yum install -y kernel-headers-$(uname -r) kernel-devel-$(uname -r)
@@ -40,8 +43,11 @@ sudo yum install -y kernel-headers-$(uname -r) kernel-devel-$(uname -r)
 # ubuntu、kali 用户通过以下命令安装
 sudo apt install make gcc bc
 
+# Arch 用户通过以下命令安装
+sudo pacman -S make gcc bc
+
 # centos 用户通过以下命令安装
-sudo yum install make gcc bc
+sudo yum install make gcc bc elfutils-libelf-devel
 ```
 
 然后进入驱动代码目录：
@@ -53,7 +59,7 @@ cd rtl8192fu
 编译并安装：
 
 ```bash
-make -j8
+make -j$(nproc)
 
 sudo make install
 ```
@@ -77,6 +83,9 @@ lsusb
 ```bash
 # ubuntu 用户通过以下命令安装
 sudo apt install usbutils
+
+# Arch 用户通过以下命令安装
+sudo pacman -S usbutils
 
 # centos 用户通过以下命令安装
 sudo yum install usbutils
@@ -132,7 +141,7 @@ sudo make uninstall
 >
 > 使用`dkms`，可以在更新内核时自动完成驱动的编译和安装。
 
-安装内核环境
+安装内核头文件
 
 ```bash
 # ubuntu、kali 用户通过以下命令安装
@@ -150,7 +159,7 @@ sudo yum install -y kernel-headers-$(uname -r) kernel-devel-$(uname -r)
 sudo apt install make gcc bc
 
 # centos 用户通过以下命令安装
-sudo yum install make gcc bc
+sudo yum install make gcc bc elfutils-libelf-devel
 ```
 
 安装`dkms` 
