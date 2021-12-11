@@ -12,12 +12,11 @@
 
 ---
 
-> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.15` 的支持，以及对 `RHEL`/`CentOS` `7.0`/`7.8`/`7.9`/`8.x`的支持。
+> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.15` 的支持，以及对 `RHEL`/`CentOS` `7.x`/`8.x`的支持。
 
 目前已测试的Linux发行版及结果：
 
-* 已通过：`Red Hat server 7.0`、`CentOS 7.0/7.8/7.9/8.3/8.4/8.5`、`Rocky Linux 8.4`、`Ubuntu Server 16.04/18.04/20.04/21.04/21.10`、`Ubuntu Desktop 18.04/20.04`、`linux mint 20.1`、`kali 2021.1`、`archlinux-2021.09.01`、`archlinux-2021.11.01`；
-* 未通过：`CentOS 7.1 ~ 7.7`。
+* 已通过：`Red Hat server 7.0`、`CentOS 7.0~7.9/8.3/8.4/8.5`、`Rocky Linux 8.4`、`Ubuntu Server 16.04/18.04/20.04/21.04/21.10`、`Ubuntu Desktop 18.04/20.04`、`linux mint 20.1`、`kali 2021.1`、`archlinux-2021.09.01`、`archlinux-2021.11.01`；
 
 其他未测试的，如果内核版本符合上述要求，通常情况下是可以使用的，但不能完全肯定。
 
