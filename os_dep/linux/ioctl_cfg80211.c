@@ -5474,7 +5474,7 @@ exit:
 }
 
 static int	cfg80211_rtw_del_station(struct wiphy *wiphy, struct net_device *ndev,
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1))
 	u8 *mac
 #elif (LINUX_VERSION_CODE < KERNEL_VERSION(3, 19, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
 	const u8 *mac
@@ -5580,7 +5580,7 @@ static int	cfg80211_rtw_del_station(struct wiphy *wiphy, struct net_device *ndev
 }
 
 static int	cfg80211_rtw_change_station(struct wiphy *wiphy, struct net_device *ndev,
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1))
 	u8 *mac,
 #else
 	const u8 *mac,
@@ -7224,7 +7224,7 @@ static int cfg80211_rtw_mgmt_tx(struct wiphy *wiphy,
 #else
 	struct net_device *ndev,
 #endif
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2)) || defined(COMPAT_KERNEL_RELEASE)
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1)) || defined(COMPAT_KERNEL_RELEASE)
 	struct ieee80211_channel *chan,
 	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 38)) || defined(COMPAT_KERNEL_RELEASE)
 	bool offchan,
@@ -7250,7 +7250,7 @@ static int cfg80211_rtw_mgmt_tx(struct wiphy *wiphy,
 #endif
 	u64 *cookie)
 {
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 2)) || defined(COMPAT_KERNEL_RELEASE)
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 1)) || defined(COMPAT_KERNEL_RELEASE)
 	struct ieee80211_channel *chan = params->chan;
 	const u8 *buf = params->buf;
 	size_t len = params->len;
@@ -9547,7 +9547,7 @@ static void rtw_cfg80211_preinit_wiphy(_adapter *adapter, struct wiphy *wiphy)
 #endif
 
 #if defined(CONFIG_PM) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0))
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1))
 	wiphy->wowlan = wowlan_stub;
 #else
 	wiphy->wowlan = &wowlan_stub;
