@@ -27,7 +27,7 @@
 #define DBG_RTW_CFG80211_MESH_CONF 0
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 2))
 #define STATION_INFO_INACTIVE_TIME	BIT(NL80211_STA_INFO_INACTIVE_TIME)
 #define STATION_INFO_LLID			BIT(NL80211_STA_INFO_LLID)
 #define STATION_INFO_PLID			BIT(NL80211_STA_INFO_PLID)
@@ -2210,7 +2210,7 @@ static void rtw_cfg80211_fill_mesh_only_sta_info(struct mesh_plink_ent *plink, s
 
 static int cfg80211_rtw_get_station(struct wiphy *wiphy,
 	struct net_device *ndev,
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1))
 	u8 *mac,
 #else
 	const u8 *mac,
@@ -4735,7 +4735,7 @@ static int
 		#else
 		char *name,
 		#endif
-		#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 1, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8))
+		#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 1, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 2))
 		unsigned char name_assign_type,
 		#endif
 		enum nl80211_iftype type,
@@ -5306,7 +5306,7 @@ void dump_station_parameters(void *sel, struct wiphy *wiphy, const struct statio
 }
 
 static int	cfg80211_rtw_add_station(struct wiphy *wiphy, struct net_device *ndev,
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1))
 	u8 *mac,
 #else
 	const u8 *mac,
@@ -5474,9 +5474,9 @@ exit:
 }
 
 static int	cfg80211_rtw_del_station(struct wiphy *wiphy, struct net_device *ndev,
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
 	u8 *mac
-#elif (LINUX_VERSION_CODE < KERNEL_VERSION(3, 19, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#elif (LINUX_VERSION_CODE < KERNEL_VERSION(3, 19, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
 	const u8 *mac
 #else
 	struct station_del_parameters *params
@@ -5493,7 +5493,7 @@ static int	cfg80211_rtw_del_station(struct wiphy *wiphy, struct net_device *ndev
 	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
 	struct sta_priv *pstapriv = &padapter->stapriv;
 
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 19, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 19, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
 	target_mac = mac;
 #else
 	target_mac = params->mac;
@@ -5580,7 +5580,7 @@ static int	cfg80211_rtw_del_station(struct wiphy *wiphy, struct net_device *ndev
 }
 
 static int	cfg80211_rtw_change_station(struct wiphy *wiphy, struct net_device *ndev,
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2))
 	u8 *mac,
 #else
 	const u8 *mac,
@@ -7224,7 +7224,7 @@ static int cfg80211_rtw_mgmt_tx(struct wiphy *wiphy,
 #else
 	struct net_device *ndev,
 #endif
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8)) || defined(COMPAT_KERNEL_RELEASE)
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 2)) || defined(COMPAT_KERNEL_RELEASE)
 	struct ieee80211_channel *chan,
 	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 38)) || defined(COMPAT_KERNEL_RELEASE)
 	bool offchan,
@@ -7250,7 +7250,7 @@ static int cfg80211_rtw_mgmt_tx(struct wiphy *wiphy,
 #endif
 	u64 *cookie)
 {
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8)) || defined(COMPAT_KERNEL_RELEASE)
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 2)) || defined(COMPAT_KERNEL_RELEASE)
 	struct ieee80211_channel *chan = params->chan;
 	const u8 *buf = params->buf;
 	size_t len = params->len;
