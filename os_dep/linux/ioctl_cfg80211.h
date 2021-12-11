@@ -359,7 +359,7 @@ void rtw_cfg80211_deinit_rfkill(struct wiphy *wiphy);
 #define rtw_cfg80211_rx_mgmt(wdev, freq, sig_dbm, buf, len, gfp) cfg80211_rx_mgmt(wdev_to_ndev(wdev), freq, buf, len, gfp)
 #elif (LINUX_VERSION_CODE < KERNEL_VERSION(3, 6, 0))
 #define rtw_cfg80211_rx_mgmt(wdev, freq, sig_dbm, buf, len, gfp) cfg80211_rx_mgmt(wdev_to_ndev(wdev), freq, sig_dbm, buf, len, gfp)
-#elif (LINUX_VERSION_CODE < KERNEL_VERSION(3, 12, 0))
+#elif (LINUX_VERSION_CODE < KERNEL_VERSION(3, 12, 0) && (RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8)))
 #define rtw_cfg80211_rx_mgmt(wdev, freq, sig_dbm, buf, len, gfp) cfg80211_rx_mgmt(wdev, freq, sig_dbm, buf, len, gfp)
 #elif (LINUX_VERSION_CODE < KERNEL_VERSION(3 , 18 , 0))
 #define rtw_cfg80211_rx_mgmt(wdev , freq , sig_dbm , buf , len , gfp) cfg80211_rx_mgmt(wdev , freq , sig_dbm , buf , len , 0 , gfp)

@@ -979,7 +979,7 @@ void rtw_cfg80211_ibss_indicate_connect(_adapter *padapter)
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 	struct wlan_network  *cur_network = &(pmlmepriv->cur_network);
 	struct wireless_dev *pwdev = padapter->rtw_wdev;
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 1))
 	struct wiphy *wiphy = pwdev->wiphy;
 	int freq = 2412;
 	struct ieee80211_channel *notify_channel;
@@ -1028,7 +1028,7 @@ void rtw_cfg80211_ibss_indicate_connect(_adapter *padapter)
 			RTW_PRINT(FUNC_ADPT_FMT" BSS not found !!\n", FUNC_ADPT_ARG(padapter));
 	}
 	/* notify cfg80211 that device joined an IBSS */
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 8))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0) || RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7, 1))
 	freq = rtw_ch2freq(cur_network->network.Configuration.DSConfig);
 	if (1)
 		RTW_INFO("chan: %d, freq: %d\n", cur_network->network.Configuration.DSConfig, freq);
@@ -1150,7 +1150,7 @@ check_bss:
 			rtw_ft_set_status(padapter, RTW_FT_ASSOCIATED_STA);
 #endif
 	} else {
-		#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8)) || defined(COMPAT_KERNEL_RELEASE)
+		#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1)) || defined(COMPAT_KERNEL_RELEASE)
 		RTW_INFO("pwdev->sme_state(b)=%d\n", pwdev->sme_state);
 		#endif
 
@@ -1161,7 +1161,7 @@ check_bss:
 				, pmlmepriv->assoc_rsp + sizeof(struct rtw_ieee80211_hdr_3addr) + 6
 				, pmlmepriv->assoc_rsp_len - sizeof(struct rtw_ieee80211_hdr_3addr) - 6
 				, WLAN_STATUS_SUCCESS, GFP_ATOMIC);
-		#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8)) || defined(COMPAT_KERNEL_RELEASE)
+		#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1)) || defined(COMPAT_KERNEL_RELEASE)
 		RTW_INFO("pwdev->sme_state(a)=%d\n", pwdev->sme_state);
 		#endif
 	}
@@ -1216,7 +1216,7 @@ void rtw_cfg80211_indicate_disconnect(_adapter *padapter, u16 reason, u8 locally
 	_enter_critical_bh(&pwdev_priv->connect_req_lock, &irqL);
 
 	if (padapter->ndev_unregistering || !rtw_wdev_not_indic_disco(pwdev_priv)) {
-		#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 8)) || defined(COMPAT_KERNEL_RELEASE)
+		#if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(7, 1)) || defined(COMPAT_KERNEL_RELEASE)
 		RTW_INFO("pwdev->sme_state(b)=%d\n", pwdev->sme_state);
 
 		if (pwdev->sme_state == CFG80211_SME_CONNECTING) {
