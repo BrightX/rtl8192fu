@@ -1,5 +1,18 @@
 # Realtek 8192FU Linux USB无线网卡驱动
 
+[![GitHub license](https://img.shields.io/badge/license-GPL--2.0-orange.svg)](LICENSE)
+![platform](https://img.shields.io/badge/platform-linux-green.svg)
+![Linux 6.0](https://img.shields.io/badge/linux-6.0-brightgreen.svg)
+<br>
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-supported-blue.svg)](https://ubuntu.com)
+[![Kali](https://img.shields.io/badge/Kali-supported-blue.svg)](https://www.kali.org)
+[![Centos](https://img.shields.io/badge/Centos-supported-blue.svg)](https://centos.org)
+[![Rocky Linux](https://img.shields.io/badge/Rocky%20Linux-supported-blue.svg)](https://rockylinux.org)
+[![ArchLinux](https://img.shields.io/badge/ArchLinux-supported-blue.svg)](https://archlinux.org)
+[![Linux Mint](https://img.shields.io/badge/Linux%20Mint-supported-blue.svg)](https://www.linuxmint.com)
+[![Fedora](https://img.shields.io/badge/Fedora-supported-blue.svg)](https://getfedora.org)
+
+
 ~~原始代码来源于: [Internet Archive](https://archive.org/details/realtek-8192fu) 。~~
 
 ~~点击这里：[下载原文件](https://ia801706.us.archive.org/zip_dir.php?path=/18/items/realtek-8192fu.zip) 。~~
@@ -12,11 +25,20 @@
 
 ---
 
-> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.19` 的支持，以及对 `RHEL`/`CentOS` `7.x`/`8.x`的支持。
+> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.19 / 6.0` 的支持，以及对 `RHEL`/`CentOS` `7.x`/`8.x`的支持。
 
 目前已测试的Linux发行版及结果：
 
-* 已通过：`Red Hat server 7.0`、`CentOS 7.0~7.9/8.3/8.4/8.5`、`Rocky Linux 8.4`、`Fedora 36-1.5`、`Ubuntu Server 16.04/18.04/20.04/21.04/21.10`、`Ubuntu Desktop 18.04/20.04`、`linux mint 20.1`、`kali 2021.1`、`archlinux 2021.09.01/2022.06.01/2022.08.05`；
+* 已通过：
+  * `Red Hat server 7.0`;
+  * `CentOS 7.0~7.9/8.3/8.4/8.5`;
+  * `Rocky Linux 8.4/8.5/8.6/9.0`;
+  * `Fedora 36-1.5`;
+  * `Ubuntu Server 16.04/18.04/20.04/21.04/21.10/22.04`;
+  * `Ubuntu Desktop 18.04/20.04`;
+  * `linux mint 20.1`;
+  * `kali 2021.1`;
+  * `archlinux 2021.09.01/2022.06.01/2022.08.05/2022.10.01`;
 
 其他未测试的，如果内核版本符合上述要求，通常情况下是可以使用的，但不能完全肯定。
 
