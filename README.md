@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-GPL--2.0-orange.svg)](LICENSE)
 ![platform](https://img.shields.io/badge/platform-linux-green.svg)
-![Linux 6.0](https://img.shields.io/badge/linux-6.0-brightgreen.svg)
+[![Linux 6.4](https://img.shields.io/badge/linux-6.4-brightgreen.svg)](https://github.com/torvalds/linux/tags)
 <br>
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-supported-blue.svg)](https://ubuntu.com)
 [![Kali](https://img.shields.io/badge/Kali-supported-blue.svg)](https://www.kali.org)
@@ -10,7 +10,7 @@
 [![Rocky Linux](https://img.shields.io/badge/Rocky%20Linux-supported-blue.svg)](https://rockylinux.org)
 [![ArchLinux](https://img.shields.io/badge/ArchLinux-supported-blue.svg)](https://archlinux.org)
 [![Linux Mint](https://img.shields.io/badge/Linux%20Mint-supported-blue.svg)](https://www.linuxmint.com)
-[![Fedora](https://img.shields.io/badge/Fedora-supported-blue.svg)](https://getfedora.org)
+[![Fedora](https://img.shields.io/badge/Fedora-supported-blue.svg)](https://fedoraproject.org)
 
 
 ~~原始代码来源于: [Internet Archive](https://archive.org/details/realtek-8192fu) 。~~
@@ -25,7 +25,7 @@
 
 ---
 
-> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.19 / 6.0 / 6.1` 的支持，以及对 `RHEL`/`CentOS` `7.x`/`8.x`的支持。
+> 经过多次修改后，在原来的基础上，增加了对 Linux 内核`5.2 ~ 5.19 / 6.0 ~ 6.4` 的支持，以及对 `RHEL`/`CentOS` `7.x`/`8.x`的支持。
 
 目前已测试的Linux发行版及结果：
 
@@ -33,9 +33,9 @@
   * `Red Hat server 7.0`;
   * `CentOS 7.0~7.9/8.3/8.4/8.5`;
   * `Rocky Linux 8.4/8.5/8.6/9.0`;
-  * `Fedora 36-1.5`;
+  * `Fedora 36-1.5 / 38-1.6`;
   * `Ubuntu Server 16.04/18.04/20.04/21.04/21.10/22.04`;
-  * `Ubuntu Desktop 18.04/20.04`;
+  * `Ubuntu Desktop 18.04/20.04/22.04`;
   * `linux mint 20.1`;
   * `kali 2021.1`;
   * `archlinux 2021.09.01/2022.06.01/2022.08.05/2022.10.01`;
